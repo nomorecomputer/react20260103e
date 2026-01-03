@@ -9,19 +9,18 @@ import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
-
+  const { VITE_XXXAPI } = import.meta.env;
   //step4
   const modalRef = useRef(null);
   const modalJSObject = useRef(null);
 
   // step10
   const getData = async () => {
-    const response = await axios.get("https://randomuser.me/api", {
+    const response = await axios.get(VITE_XXXAPI, {
       baseURL: "",
     });
 
-    const { results } = response.data;
-    console.dir(results);
+    console.dir(response);
     openModal();
     setTimeout(() => {
       closeModal();
@@ -45,7 +44,7 @@ function App() {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   return (
     <>
