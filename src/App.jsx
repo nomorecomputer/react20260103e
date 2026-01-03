@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+//step6
+import { Modal } from "bootstrap";
 
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -7,13 +9,40 @@ import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  //step4
+  const modalRef = useRef(null);
+  const modalJSObject = useRef(null);
+
+  // step10
   const getData = async () => {
     const response = await axios.get("https://randomuser.me/api", {
       baseURL: "",
     });
+
     const { results } = response.data;
     console.dir(results);
+    openModal();
+    setTimeout(() => {
+      closeModal();
+    }, 2000);
   };
+  //step8
+  const openModal = () => {
+    modalJSObject.current.show();
+  };
+  //step12
+  //step8
+  const closeModal = () => {
+    modalJSObject.current.hide();
+  };
+
+  //step7
+  useEffect(() => {
+    console.log(modalRef.current);
+    modalJSObject.current = new Modal(modalRef.current);
+  }, []);
+
   useEffect(() => {
     getData();
   }, []);
@@ -23,15 +52,23 @@ function App() {
       <button
         type="button"
         className="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        // step2
+        // data-bs-toggle="modal"
+        // data-bs-target="#exampleModal"
+
+        //step9
+        onClick={() => openModal()}
       >
         Launch demo modal
       </button>
 
       <div
         className="modal fade"
-        id="exampleModal"
+        //step3
+        // id="exampleModal"
+
+        //step5
+        ref={modalRef}
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -54,7 +91,7 @@ function App() {
               <button
                 type="button"
                 className="btn btn-secondary"
-                data-bs-dismiss="modal"
+                data-bs-dismiss="{modalRef}"
               >
                 Close
               </button>
