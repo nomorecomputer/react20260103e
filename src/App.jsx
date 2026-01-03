@@ -31,7 +31,7 @@ function App() {
   const openModal = () => {
     modalJSObject.current.show();
   };
-  //step12
+
   //step8
   const closeModal = () => {
     modalJSObject.current.hide();
@@ -91,7 +91,7 @@ function App() {
               <button
                 type="button"
                 className="btn btn-secondary"
-                data-bs-dismiss="{modalRef}"
+                onClick={() => closeModal()}
               >
                 Close
               </button>
